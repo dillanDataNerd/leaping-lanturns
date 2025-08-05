@@ -1,7 +1,7 @@
 // DOM elements
 const startScreenNode = document.querySelector("#start-screen");
 const gameScreenNode = document.querySelector("#game-screen");
-const gameOverScreenNode = document.querySelector("gameover-screen");
+const gameOverScreenNode = document.querySelector("#gameover-screen");
 const gameBoxNode = document.querySelector("#game-box");
 
 const startButtonNode = document.querySelector("#start-button");
@@ -10,7 +10,7 @@ const liveScoreNode=document.querySelector(".score")
 
 // Global variables
 let cricketObj = null;
-const lanternArray = [];
+let lanternArray = [];
 let gameIntervalID = null;
 let spawnIntervalID = null;
 let score = 0;
@@ -27,6 +27,7 @@ const platformWidth = 30
 function startGame() {
   startScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
+
   cricketObj = new Cricket();
   lanternArray[0] = new Lantern(cricketObj.x, cricketObj.y, 100, true);
 
@@ -67,7 +68,12 @@ function gameOver() {
   if (checkCricketCollisionFloor()) {
     clearInterval(gameIntervalID);
     clearInterval(spawnIntervalID);
+
+  gameScreenNode.style.display = "none";
+  gameOverScreenNode.style.display = "flex";  
+
   }
+
 }
 
 function checkCricketCollisionFloor() {
@@ -147,6 +153,7 @@ function spawnLantern() {
 
   return;
 }
+
 function despawnLantern(lanternObj) {
   if (checkLanternCollisionFloor(lanternObj)) {
     lanternArray[0].node.remove();
@@ -157,13 +164,25 @@ function despawnLantern(lanternObj) {
 function sortLanternArrayDescending() {
   lanternArray.sort((a, b) => b.y - a.y);
 }
+
 function updateScore(){
   score += 60/1000
   liveScoreNode.innerHTML=Math.round(score)
 }
 
+function restartGame(){
+  cricketObj.node.style.display = "none"
+  lanternArray.forEach((thisLantern)=>thisLantern.node.style.display="none")
+
+  score=0
+  cricketObj=null
+  lanternArray=[]
+
+  startGame()
+}
 
 // Global listners
 
 startButtonNode.addEventListener("click", startGame);
+restartButtonNode.addEventListener("click", restartGame);
 document.addEventListener("keydown", cricketAction);
