@@ -26,20 +26,20 @@ class Lantern {
     this.gravitySpeed = 0.5 * this.floatSpeed;
     this.remainingFuel = startingFuelAMount;
     this.containsCricket = containsCricket;
+    this.currentSpeed = this.floatSpeed
   }
 
   automaticMovement() {
-    let movementSpeed=0
     if (this.remainingFuel) {
-      movementSpeed = -this.floatSpeed;
+      this.currentSpeed = -this.floatSpeed;
       this.remainingFuel--;
     } else if (this.remainingFuel === 0) {
-        movementSpeed=this.gravitySpeed
+        this.currentSpeed=this.gravitySpeed
         }
 
-    this.y += movementSpeed
+    this.y += this.currentSpeed
     this.node.style.top = `${this.y}px`;
-    return movementSpeed
+    
   }
 
   flicker() {}

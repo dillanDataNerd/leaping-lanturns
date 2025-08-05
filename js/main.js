@@ -14,8 +14,10 @@ let gameIntervalID = null;
 let spawnIntervalID = null;
 let score = 0;
 let activeLanternMovementSpeed = 0;
-const lanternSpawnLocationBelowScreen = 100;
+const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
+const minimumStartingFuel = 100;
+const platformHeight = 10;
 
 // Global functions
 
@@ -32,24 +34,30 @@ function startGame() {
 }
 
 function gameLoop() {
-      cricketObj.automaticMovement();
+
+  //Despawn all lanterns that are falling and out of screen
+  // When the cricket is not on a platform check if it is in the vicinity of one and land on it
+  console.log(cricketObj.onPlatform)
 
   sortLanternArrayDescending();
-
   lanternArray.forEach((lanternObj) => {
-    lanternObj.automaticMovement();
     despawnLantern(lanternObj);
 
-    if (cricketObj.onPlatform === false && checkLanding(cricketObj, lanternObj)) {
-      console.log("landed")
-      cricketObj.onPlatform=true
-      lanternObj.containsCricket=true
+    if (checkLanding(cricketObj, lanternObj)
+    ) {
+      console.log("landed");
+      cricketObj.onPlatform = true;
+      lanternObj.containsCricket = true;
+      cricketObj.currentLantern=lanternObj
     }
   });
 
+  // move the lanturn and cricket based on objectives above
+  lanternArray.forEach((lanternObj) => lanternObj.automaticMovement());
+  cricketObj.automaticMovement(activeLanternMovementSpeed);
 
-
-  //gameOver();
+  //check if the bug has hit the ground. When it does, finish the game
+ // gameOver();
 }
 
 function gameOver() {
@@ -96,30 +104,18 @@ function checkLanding(cricketObj, eachLanternObj) {
     cricketObj.x < eachLanternObj.x + eachLanternObj.w &&
     cricketObj.x + cricketObj.w > eachLanternObj.x &&
     cricketObj.y < eachLanternObj.y + eachLanternObj.h &&
-    cricketObj.y + cricketObj.h > eachLanternObj.y  &&
-    cricketObj.onPlatform === false &&
-    eachLanternObj.containsCricket === false
+    cricketObj.y + cricketObj.h >
+      eachLanternObj.y + eachLanternObj.h - platformHeight &&
+    cricketObj.onPlatform === false
   ) {
     console.log("landed");
-    cricketObj.onPlatform = true
-    
+    cricketObj.onPlatform = true;
+    //activeLanternMovementSpeed = eachLanternObj.movementSpeed;
+
     return true;
   } else {
     return false;
   }
-}
-
-function checkCricketLandedOnLantern() {
-  if (cricketObj.onPlatform) {
-    return;
-  }
-
-  lanternArray.forEach((eachLanternObj) => {
-    isColliding = checkCollision(cricketObj, eachLanternObj);
-    if (isColliding) {
-      gameOver();
-    }
-  });
 }
 
 function cricketAction(event) {
@@ -131,7 +127,7 @@ function cricketAction(event) {
     event.key === "ArrowRight"
   ) {
     cricketObj.traverse(event);
-    cricketObj.onPlatform = false
+    cricketObj.onPlatform = false;
   }
 }
 
@@ -140,15 +136,15 @@ function spawnLantern() {
     Math.random() * (gameBoxNode.offsetWidth - lanternArray[0].w)
   );
   let randomYPosition =
-    Math.floor(Math.random() * lanternSpawnLocationBelowScreen) +
+    //   Math.floor(Math.random() * lanternSpawnLocationBelowScreen) +
     gameBoxNode.offsetHeight;
-  let startingFuelAMount = Math.floor(Math.random() * gameBoxNode.offsetHeight);
+  let startingFuelAMount =
+    Math.floor(Math.random() * gameBoxNode.offsetHeight) + minimumStartingFuel;
 
   lanternArray.push(
     new Lantern(randomXPosition, randomYPosition, startingFuelAMount, false)
   );
 
-  console.log(lanternArray);
   return;
 }
 function despawnLantern(lanternObj) {
