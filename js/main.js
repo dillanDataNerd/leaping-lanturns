@@ -18,6 +18,7 @@ const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
 const minimumStartingFuel = 100;
 const platformHeight = 10;
+const platformWidth = 30
 
 // Global functions
 
@@ -37,27 +38,29 @@ function gameLoop() {
 
   //Despawn all lanterns that are falling and out of screen
   // When the cricket is not on a platform check if it is in the vicinity of one and land on it
-  console.log(cricketObj.onPlatform)
-
   sortLanternArrayDescending();
   lanternArray.forEach((lanternObj) => {
     despawnLantern(lanternObj);
+    lanternObj.burntOut()
 
-    if (checkLanding(cricketObj, lanternObj)
-    ) {
-      console.log("landed");
+    if (checkLanding(cricketObj, lanternObj)) {
       cricketObj.onPlatform = true;
-      lanternObj.containsCricket = true;
       cricketObj.currentLantern=lanternObj
-    }
-  });
+      cricketObj.repositionOnLanturn()
+      lanternObj.absorbCricket(cricketObj)
 
+    }
+  }
+
+    )
+    score += 60/1000
+  
   // move the lanturn and cricket based on objectives above
   lanternArray.forEach((lanternObj) => lanternObj.automaticMovement());
   cricketObj.automaticMovement(activeLanternMovementSpeed);
 
   //check if the bug has hit the ground. When it does, finish the game
- // gameOver();
+  gameOver();
 }
 
 function gameOver() {
@@ -100,22 +103,20 @@ function checkCollision(element1, element2) {
 }
 
 function checkLanding(cricketObj, eachLanternObj) {
-  if (
-    cricketObj.x < eachLanternObj.x + eachLanternObj.w &&
-    cricketObj.x + cricketObj.w > eachLanternObj.x &&
-    cricketObj.y < eachLanternObj.y + eachLanternObj.h &&
-    cricketObj.y + cricketObj.h >
-      eachLanternObj.y + eachLanternObj.h - platformHeight &&
-    cricketObj.onPlatform === false
-  ) {
-    console.log("landed");
-    cricketObj.onPlatform = true;
-    //activeLanternMovementSpeed = eachLanternObj.movementSpeed;
+  const cricketMidX = cricketObj.x + cricketObj.w / 2;
+  const platformLeft = eachLanternObj.x + (eachLanternObj.w - platformWidth) / 2;
+  const platformRight = eachLanternObj.x + eachLanternObj.w - (eachLanternObj.w - platformWidth) / 2;
 
+  if (
+    cricketMidX > platformLeft &&
+    cricketMidX < platformRight &&
+    cricketObj.y + cricketObj.h - platformHeight< eachLanternObj.y + eachLanternObj.h &&
+    cricketObj.y + cricketObj.h > eachLanternObj.y + eachLanternObj.h - platformHeight &&
+    cricketObj.onPlatform == false
+  ) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 function cricketAction(event) {
@@ -136,7 +137,6 @@ function spawnLantern() {
     Math.random() * (gameBoxNode.offsetWidth - lanternArray[0].w)
   );
   let randomYPosition =
-    //   Math.floor(Math.random() * lanternSpawnLocationBelowScreen) +
     gameBoxNode.offsetHeight;
   let startingFuelAMount =
     Math.floor(Math.random() * gameBoxNode.offsetHeight) + minimumStartingFuel;
@@ -157,6 +157,8 @@ function despawnLantern(lanternObj) {
 function sortLanternArrayDescending() {
   lanternArray.sort((a, b) => b.y - a.y);
 }
+
+
 
 // Global listners
 
