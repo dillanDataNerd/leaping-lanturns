@@ -7,6 +7,7 @@ const gameBoxNode = document.querySelector("#game-box");
 const startButtonNode = document.querySelector("#start-button");
 const restartButtonNode = document.querySelector("#restart-button");
 const liveScoreNode=document.querySelector(".score")
+const finalScoreNode=document.querySelector("#gameover-screen .score")
 
 // Global variables
 let cricketObj = null;
@@ -17,8 +18,8 @@ let score = 0;
 const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
 const minimumStartingFuel = 100;
-const platformHeight = 10;
-const platformWidth = 30
+const platformHeight = 20;
+const platformWidth = 40
 
 // Global functions
 
@@ -71,6 +72,8 @@ function gameOver() {
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";  
+  
+  finalScoreNode.innerHTML=`${Math.round(score)}m`
 
   }
 
@@ -172,6 +175,7 @@ function updateScore(){
 
 function restartGame(){
   cricketObj.node.style.display = "none"
+  gameOverScreenNode.style.display = "none"
   lanternArray.forEach((thisLantern)=>thisLantern.node.style.display="none")
 
   score=0
