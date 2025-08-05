@@ -6,6 +6,7 @@ const gameBoxNode = document.querySelector("#game-box");
 
 const startButtonNode = document.querySelector("#start-button");
 const restartButtonNode = document.querySelector("#restart-button");
+const liveScoreNode=document.querySelector(".score")
 
 // Global variables
 let cricketObj = null;
@@ -13,7 +14,6 @@ const lanternArray = [];
 let gameIntervalID = null;
 let spawnIntervalID = null;
 let score = 0;
-let activeLanternMovementSpeed = 0;
 const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
 const minimumStartingFuel = 100;
@@ -53,11 +53,11 @@ function gameLoop() {
   }
 
     )
-    score += 60/1000
+    updateScore()
   
   // move the lanturn and cricket based on objectives above
   lanternArray.forEach((lanternObj) => lanternObj.automaticMovement());
-  cricketObj.automaticMovement(activeLanternMovementSpeed);
+  cricketObj.automaticMovement();
 
   //check if the bug has hit the ground. When it does, finish the game
   gameOver();
@@ -157,7 +157,10 @@ function despawnLantern(lanternObj) {
 function sortLanternArrayDescending() {
   lanternArray.sort((a, b) => b.y - a.y);
 }
-
+function updateScore(){
+  score += 60/1000
+  liveScoreNode.innerHTML=Math.round(score)
+}
 
 
 // Global listners

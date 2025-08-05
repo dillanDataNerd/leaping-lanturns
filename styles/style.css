@@ -22,11 +22,11 @@ button {
 
 #game-box {
   background-color: darkgray;
-  width:400px;
-  height:600px;
+  width:500px;
+  height:800px;
 
   position: relative; /* allows us to position inner elements (absolute) related the the game-box */
-  /* overflow: hidden;  */
+  overflow: hidden; 
   /*prevents elements to visually exit the game-box */
   user-select: none; /* prevents elements inside the game-box to be highlighted. This improves the user experience for click events on the game-box */
 
@@ -35,7 +35,6 @@ button {
 #game-box * {
   pointer-events: none; /* prevents elements in the game-box to be dragged. This improves the user experience for click events on the game-box  */
   background-image: cover;
-
 }
 
 #game-screen, #gameover-screen{
@@ -45,4 +44,17 @@ button {
 #game-box {
   background-image: url(../images/background.png);
   background-size: cover;
+}
+
+#game-box p{
+  position: absolute;
+  padding: 10px 30px;
+  top:0px;
+  right:0px;
+  color: white;
+  font-weight: bold
+
+  ;
+
+
 }

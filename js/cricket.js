@@ -5,8 +5,8 @@ class Cricket {
     this.node.src = "../images/cricket.png"; // access this as if you were accessing the image from the HTML file
     gameBoxNode.append(this.node);
 
-    this.h = 60;
-    this.w = 60;
+    this.h = 80;
+    this.w = 80;
     this.x = gameBoxNode.offsetWidth / 2 - this.w / 2; //set these at the start so the cricket is centered on the lantern
     this.y = gameBoxNode.offsetHeight - this.h - 100;
 
@@ -20,14 +20,14 @@ class Cricket {
     this.node.style.top = `${this.y}px`;
 
     this.gravitySpeed = 2;
-    this.jumpSpeed = 50;
-    this.traverseSpeed=30
+    this.jumpSpeed = 70;
+    this.traverseSpeed = 40;
     this.jumpDirection = "right";
     this.onPlatform = false;
     this.currentLantern = null;
   }
 
-  automaticMovement(lanternSpeed) {
+  automaticMovement() {
     //check if the cricket is not on the platform
     if (this.onPlatform) {
       this.y += this.currentLantern.currentSpeed;
@@ -84,40 +84,25 @@ class Cricket {
     this.node.style.top = `${this.y}px`;
 
     this.node.src = "../images/cricket.png";
-      this.currentLantern.releaseCricket(this); // let the lantern restore itself
-      this.currentLantern = null;
-      this.onPlatform = false;
-        
-
+    this.currentLantern.releaseCricket(this); // let the lantern restore itself
+    this.currentLantern = null;
+    this.onPlatform = false;
   }
 
-
-// can you refactor this to change images when you land
+  // can you refactor this to change images when you land
 
   landed() {
-    console.log("landed");
     cricketObj.onPlatform = true;
     lanternObj.containsCricket = true;
     cricketObj.currentLantern = lanternObj;
-
-  
   }
 
   // when the cricket lands it needs to be centered on the lanturn
-repositionOnLanturn(){     
-      this.x= this.currentLantern.x + this.currentLantern.w/2 -this.w/2
-      this.y= this.currentLantern.y +this.currentLantern.h/2
+  repositionOnLanturn() {
+    this.x = this.currentLantern.x + this.currentLantern.w / 2 - this.w / 2;
+    this.y = this.currentLantern.y + this.currentLantern.h / 2;
 
     this.node.style.left = `${this.x}px`;
     this.node.style.top = `${this.y}px`;
-}
-
-
-
-
-
-
-
-
-
+  }
 }

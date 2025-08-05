@@ -44,6 +44,11 @@ class Lantern {
   }
 
   burntOut() {
+
+    if (this.y<0){
+        this.remainingFuel=0
+    }
+
     if (this.remainingFuel === 0){
         this.node.src = "../images/burntOutLantern.png"
     }
