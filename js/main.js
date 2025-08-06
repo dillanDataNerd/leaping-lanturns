@@ -6,12 +6,14 @@ const gameBoxNode = document.querySelector("#game-box");
 
 const startButtonNode = document.querySelector("#start-button");
 const restartButtonNode = document.querySelector("#restart-button");
+const saveScoreButtonNode= document.querySelector("#save-button")
 const liveScoreNode=document.querySelector(".score")
 const finalScoreNode=document.querySelector("#gameover-screen .score")
-
+const highScoreList=document.querySelector("#high-score-list")
+const nameInputNode=document.querySelector("#high-score-name")
 // Audio elements
 const backgroundMusic = new Audio('/sounds/backgroundFireworks.wav')// background music when the game starts
-const jumpSound= new Audio ("/sounds/jumpSoundAlternative.wav")
+const jumpSound= new Audio ("/sounds/jumpSound.wav")
 const landSound= new Audio ("/sounds/landSound.wav")
 const endGameMusic= new Audio ("/sounds/endGameMusic.flac")
 
@@ -86,9 +88,10 @@ function gameOver() {
   splatSound.play()
   setTimeout(()=>{},500)
   endGameMusic.play()
-
-  
   finalScoreNode.innerHTML=`${Math.round(score)}m`
+  finalScoreNode.innerHTML=`${Math.round(score)}m`
+
+
 
   }
 
@@ -197,11 +200,48 @@ function restartGame(){
   cricketObj=null
   lanternArray=[]
 
+  saveScoreButtonNode.disabled=false
+  saveScoreButtonNode.classList.remove("disabled")
+  saveScoreButtonNode.innerHTML="Save score"
+
   startGame()
+}
+
+function save(){
+  saveScoreButtonNode.disabled=true
+  saveScoreButtonNode.classList.add("disabled")
+  saveScoreButtonNode.innerHTML="Saved"
+  highScoreList.innerHTML="testtest"
+
+
+  object={
+    name:nameInputNode.value,
+    score:Math.round(score)
+  }
+
+  localStorage.setItem(object)
+  console.log(localStorage)
+}
+
+function prepareHighScoreList(){
+
+  localStorage.
+
+
+
+}
+
+function sortHighScoreList(){
+  localStorage.forEach
+
+
+
+
 }
 
 // Global listners
 
 startButtonNode.addEventListener("click", startGame);
 restartButtonNode.addEventListener("click", restartGame);
+saveScoreButtonNode.addEventListener("click",save)
 document.addEventListener("keydown", cricketAction);

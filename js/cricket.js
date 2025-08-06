@@ -19,8 +19,8 @@ class Cricket {
     this.node.style.left = `${this.x}px`;
     this.node.style.top = `${this.y}px`;
 
-    this.gravitySpeed = 2;
-    this.jumpSpeed = 70;
+    this.gravitySpeed = 4;
+    this.jumpSpeed = 120;
     this.traverseSpeed = 40;
     this.jumpDirection = "right";
     this.onPlatform = false;

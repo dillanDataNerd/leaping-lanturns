@@ -31,6 +31,7 @@ button {
   font-size: 20px;
   margin-top: 40px;
   border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25)
 }
 
 .container {
@@ -86,4 +87,14 @@ h3{
   font-weight: bold;
   font-size: 2em;
 
+}
+
+#save-button{
+}
+ .disabled{
+  background: rgba(32, 2, 107, 0.25);
+  color: rgba(255,255,255,0.5);
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none; ;
 }
