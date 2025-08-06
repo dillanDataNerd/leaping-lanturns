@@ -3,21 +3,24 @@ body {
   background-color: lightgray;
   color: white;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 #start-screen{
   background-image: url(../images/startScreen.png);
   background-size: cover;
-    width:500px;
-  height:800px;
+  width:400px;
+  height:700px;
+  margin: 0;
 
 }
 
 #gameover-screen{
   background-image: url(../images/endScreen.png);
   background-size: cover;
-    width:500px;
-  height:800px;
+  width:400px;
+  height:700px;
 
 }
 
@@ -40,8 +43,8 @@ button {
 
 #game-box {
   background-color: darkgray;
-  width:500px;
-  height:800px;
+  width:400px;
+  height:700px;
 
   position: relative; /* allows us to position inner elements (absolute) related the the game-box */
   overflow: hidden; 

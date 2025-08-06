@@ -87,6 +87,7 @@ class Cricket {
     this.currentLantern.releaseCricket(this); // let the lantern restore itself
     this.currentLantern = null;
     this.onPlatform = false;
+    jumpSound.play()
   }
 
   // can you refactor this to change images when you land
@@ -95,6 +96,7 @@ class Cricket {
     cricketObj.onPlatform = true;
     lanternObj.containsCricket = true;
     cricketObj.currentLantern = lanternObj;
+    landSound.play()
   }
 
   // when the cricket lands it needs to be centered on the lanturn

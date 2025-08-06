@@ -9,7 +9,17 @@ const restartButtonNode = document.querySelector("#restart-button");
 const liveScoreNode=document.querySelector(".score")
 const finalScoreNode=document.querySelector("#gameover-screen .score")
 
+// Audio elements
+const backgroundMusic = new Audio('/sounds/backgroundFireworks.wav')// background music when the game starts
+const jumpSound= new Audio ("/sounds/jumpSoundAlternative.wav")
+const landSound= new Audio ("/sounds/landSound.wav")
+const endGameMusic= new Audio ("/sounds/endGameMusic.flac")
+
+const splatSound= new Audio ("/sounds/splat.wav")
+
+
 // Global variables
+
 let cricketObj = null;
 let lanternArray = [];
 let gameIntervalID = null;
@@ -28,6 +38,7 @@ const platformWidth = 40
 function startGame() {
   startScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
+  //backgroundMusic.play()
 
   cricketObj = new Cricket();
   lanternArray[0] = new Lantern(cricketObj.x, cricketObj.y, 100, true);
@@ -72,6 +83,10 @@ function gameOver() {
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";  
+  splatSound.play()
+  setTimeout(()=>{},500)
+  endGameMusic.play()
+
   
   finalScoreNode.innerHTML=`${Math.round(score)}m`
 
