@@ -4,56 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leaping lanturns</title>
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <audio autoplay loop >  <source src='/sounds/backgroundFireworks.wav' type="audio/wav"></audio>
+    <div id="app"> 
+    <audio autoplay loop>
+      <source src="/sounds/backgroundFireworks.wav" type="audio/wav" />
+    </audio>
     <section id="start-screen" class="container">
-    <h1>Leaping lanturns</h1>
-    <div class="container">
-    <p>
-      You're a lucky cricket and you've always wanted to be in the sky dancing
-      with the lanturns during chinese new year. Catch a ride on paper lanturns
-      and go as high as you can. Lanturns don't burn forever though so make sure
-      you jump between them.
-    </p>
-    </div>
-    <button id="start-button">Play now</button>
+      <h1>Leaping lanturns</h1>
+      <div class="container">
+        <p>
+          You're a lucky cricket and you've always wanted to be in the sky
+          dancing with the lanturns during chinese new year. 
+          
+          Catch a ride on the paper lanterns and go as high as you can. 
+      </div>
+      <button id="start-button">Play now</button>
     </section>
     <section id="game-screen" class="container">
-      
-
-        <div id="game-box" class="container">
-          <p>Score: <span class="score"> 30 </span></p>
-        </div>
+      <div id="game-box" class="container">
+        <p>Score: <span class="score"> 30 </span></p>
+      </div>
     </section>
     <section id="gameover-screen" class="container">
-      
-      <h3>Wowee, the world looks mighty small from up here. Your score is </h3>
-        <p><span class="score"> 40s</span></p> 
-    <button id="restart-button">Restart</button>
+      <h3>Wowee, the world looks mighty small from up here. Your score is:</h3>
 
-    <div id="high-score" class="container"></div>
-    <h2>High scores</h2>
-    <ol id="high-score-list">
-       <li>person1: score</li>
-    <li>person2: score</li>
+      <p><span class="score"></span></p>
+      <button id="restart-button">Play again</button>
 
-    </ol>
-   
+      <div id="high-score" class="container"></div>
+      <h2>High scores</h2>
+      <ul id="high-score-list"></ul>
 
-    <input type="text" label="Name" id="high-score-name">
-    <button id="save-button">Save score</button>
-    
+      <input
+        type="text"
+        label="Name"
+        id="high-score-name"
+        placeholder="Please enter your name"
+      />
+      <button id="save-button">Save score</button>
+    </section>
 
-</section>
-
-
-
-<script src="./js/main.js"></script>
-<script src="./js/cricket.js"></script>
-<script src="./js/lantern.js"></script>
-
-
+    <script src="./js/main.js"></script>
+    <script src="./js/cricket.js"></script>
+    <script src="./js/lantern.js"></script>
+    </div>
   </body>
 </html>
