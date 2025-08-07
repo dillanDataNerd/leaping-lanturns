@@ -16,7 +16,7 @@ const backgroundMusic = new Audio("./sounds/backgroundFireworks.wav"); // backgr
 const jumpSound = new Audio("./sounds/jumpSound.wav");
 const landSound = new Audio("./sounds/landSound.wav");
 const endGameMusic = new Audio("./sounds/endGameMusic.flac");
-backgroundMusic.volume = 0.1;
+backgroundMusic.volume = 0.8;
 jumpSound.volume = 0.3;
 landSound.volume = 1;
 endGameMusic.volume = 0.1;
@@ -48,7 +48,7 @@ if (!localStorage.getItem("previousHighScoreArray")) {
 function startGame() {
   startScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
-  //backgroundMusic.play()
+  backgroundMusic.play()
 
   cricketObj = new Cricket();
   lanternArray[0] = new Lantern(cricketObj.x, cricketObj.y, 100, true);
