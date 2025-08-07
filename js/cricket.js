@@ -112,19 +112,15 @@ class Cricket {
 
     if(this.jumpDirection==="right" && this.traverseVector>0){
     this.traverseVector = this.traverseVector-this.VectorReduction
-    console.log("traversing right" + this.traverseVector)
     }
     else if(this.jumpDirection==="right" && this.traverseVector<0){
     this.traverseVector = 0
-    console.log("traversing right ended" + this.traverseVector)
     }
         if(this.jumpDirection==="left" && this.traverseVector<0){
     this.traverseVector = this.traverseVector+this.VectorReduction
-    console.log("traversing left" + this.traverseVector)
     }
     else if(this.jumpDirection==="left" && this.traverseVector>0){
     this.traverseVector = 0
-    console.log("traversing left ended" + this.traverseVector)
     }
 
 
