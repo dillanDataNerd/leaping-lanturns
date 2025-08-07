@@ -38,13 +38,14 @@
       </section>
       <section id="gameover-screen" class="container">
         <h3>
-          Wowee, the world looks mighty small from up here. Your score is:
+          Great hopping. Your score is;
         </h3>
 
         <p><span class="score"></span></p>
         
 
         <div id="high-score" class="container"></div>
+        <div></div>
         <h2>High scores</h2>
         <ul id="high-score-list"></ul>
 
@@ -53,14 +54,18 @@
           label="Name"
           id="high-score-name"
           placeholder="Please enter your name"
+          onfocus="this.value"
         />
+        <div id="endgame-buttons">
         <button id="save-button">Save score</button>
         <button id="restart-button">Play again</button>
+        </div>
       </section>
 
-      <script src="./js/main.js"></script>
-      <script src="./js/cricket.js"></script>
-      <script src="./js/lantern.js"></script>
+
     </div>
   </body>
+        <script src="./js/main.js"></script>
+      <script src="./js/cricket.js"></script>
+      <script src="./js/lantern.js"></script>
 </html>

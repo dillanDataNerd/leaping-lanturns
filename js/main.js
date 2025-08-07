@@ -208,14 +208,17 @@ function restartGame() {
 }
 
 function save() {
-  saveScoreButtonNode.disabled = true;
-  saveScoreButtonNode.classList.add("disabled");
-  saveScoreButtonNode.innerHTML = "Saved";
+
+  restartButtonNode.style.display="flex"
+saveScoreButtonNode.style.display="none"
+nameInputNode.style.display="none"
 
   addHighScoreToList();
 }
 
 function checkNewScoreIsTop5() {
+
+  //retrieve the latest high score and compare it to the scores stored in memory
   let newHighScore = {
     name: nameInputNode.value || "Unknown Cricket",
     score: Math.round(score),
@@ -227,17 +230,23 @@ function checkNewScoreIsTop5() {
   highScoresArray.push(newHighScore);
   sortHighScores(highScoresArray);
 
-  console.log("highscorearray=" + highScoresArray);
-
+// check if the high score is high enough that we should save the score
   if (
     highScoresArray.length < 5 ||
     highScoresArray[4].score < newHighScore.score
   ) {
-    return true;
-  } else {
-    saveScoreButtonNode.disabled = true;
-    saveScoreButtonNode.classList.add("disabled");
-    saveScoreButtonNode.innerHTML = "Try harder";
+    
+    nameInputNode.style.display="block"
+    saveScoreButtonNode.style.display="flex"
+    saveScoreButtonNode.style.disabled = true;
+    restartButtonNode.style.display="none"
+  } 
+  // if the score was not worth saving only show the oplay game button
+  else {
+    nameInputNode.style.display="none"
+    saveScoreButtonNode.style.display="none"
+    saveScoreButtonNode.style.disabled = true;
+
   }
 }
 
@@ -285,6 +294,7 @@ function resetSaveButtonState() {
   saveScoreButtonNode.disabled = false;
   saveScoreButtonNode.classList.remove("disabled");
   saveScoreButtonNode.innerHTML = "Save score";
+  nameInputNode.value=""
 }
 
 function resetGameState() {
@@ -319,13 +329,10 @@ function showHighScoreList() {
   }
 }
 
-//   createElement
-// }
 // Global listners
-
+document.addEventListener("keydown", cricketAction);
 startButtonNode.addEventListener("click", startGame);
 restartButtonNode.addEventListener("click", restartGame);
 saveScoreButtonNode.addEventListener("click", save);
-document.addEventListener("keydown", cricketAction);
 
 //
