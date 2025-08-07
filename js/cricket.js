@@ -2,7 +2,7 @@ class Cricket {
   constructor() {
     this.node = document.createElement("img");
     this.node.className = "cricket";
-    this.node.src = "../images/cricket.png"; // access this as if you were accessing the image from the HTML file
+    this.node.src = "./images/cricket.png"; // access this as if you were accessing the image from the HTML file
     gameBoxNode.append(this.node);
 
     this.h = 80;

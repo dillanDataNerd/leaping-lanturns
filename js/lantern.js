@@ -2,7 +2,7 @@ class Lantern {
   constructor(xPosition, yPosition, startingFuelAMount, containsCricket) {
     this.node = document.createElement("img");
     this.node.className = "lantern";
-    this.node.src = "../images/lantern-floating.png"; 
+    this.node.src = "./images/lantern-floating.png"; 
     gameBoxNode.append(this.node);
 
     this.h = 150;
@@ -60,20 +60,20 @@ class Lantern {
     }
 
     if (this.remainingFuel === 0){
-        this.node.src = "../images/burntOutLantern.png"
+        this.node.src = "./images/burntOutLantern.png"
     }
 
      if (this.remainingFuel === 0 && this.containsCricket ===true){
-        this.node.src = "../images/landedCricketFallingLanturn.png"
+        this.node.src = "./images/landedCricketFallingLanturn.png"
     }
   }
 
   absorbCricket(cricket) {
     if (this.remainingFuel>0){
-        this.node.src = "../images/landedCricketRisingLanturn.png"
+        this.node.src = "./images/landedCricketRisingLanturn.png"
     }
     else {
-        this.node.src = "../images/landedCricketFallingLanturn.png"
+        this.node.src = "./images/landedCricketFallingLanturn.png"
     }
     cricket.node.style.display = "none"; // hide cricket
     ; // swap lantern image
@@ -84,9 +84,9 @@ class Lantern {
     cricket.node.style.display = "block"; // show cricket
 
     if(this.remainingFuel===0){
-    this.node.src = "../images/burntOutLantern.png"
+    this.node.src = "./images/burntOutLantern.png"
     }else{
-    this.node.src = "../images/lantern-floating.png";} // restore lantern
+    this.node.src = "./images/lantern-floating.png";} // restore lantern
     this.containsCricket = false
     
     this.justReleased = true;

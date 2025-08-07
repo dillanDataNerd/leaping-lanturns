@@ -78,7 +78,11 @@ function gameLoop() {
   lanternArray.forEach((lanternObj) => lanternObj.automaticMovement());
   cricketObj.automaticMovement();
 
+  // scroll the background up as the user get higher
+  scrollBackground()
+  
   //check if the bug has hit the ground. When it does, finish the game
+  
   gameOver();
 }
 
@@ -304,6 +308,12 @@ function showHighScoreList() {
     }
     i++;
   }
+}
+
+function scrollBackground(){
+  
+
+
 }
 
 // Global listners

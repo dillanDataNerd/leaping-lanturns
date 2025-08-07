@@ -96,7 +96,7 @@ button:hover {
   user-select: none; }
 
 #game-box {
-  pointer-events: none; /* prevents elements in the game-box to be dragged. This improves the user experience for click events on the game-box  */
+  pointer-events: none; 
   background-image: cover;
 }
 
