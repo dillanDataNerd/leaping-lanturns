@@ -28,6 +28,7 @@ class Lantern {
     this.containsCricket = containsCricket;
     this.currentFloatSpeed = this.floatSpeed
     this.currentWindSpeed= this.windDirection*this.windSpeed
+    this.justReleased= false
   }
 
   automaticMovement() {
@@ -86,7 +87,10 @@ class Lantern {
     this.node.src = "../images/burntOutLantern.png"
     }else{
     this.node.src = "../images/lantern-floating.png";} // restore lantern
-    this.containsCricket = false;
+    this.containsCricket = false
+    
+    this.justReleased = true;
+    setTimeout(() => this.justReleased = false, 200)
   }
 
 // if the lantern hits a wall, change the x direction of thel lantern
@@ -95,4 +99,6 @@ class Lantern {
       this.currentWindSpeed *= -1
     }
   }
+  
+
 }

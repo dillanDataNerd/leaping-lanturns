@@ -19,27 +19,38 @@ class Cricket {
     this.node.style.left = `${this.x}px`;
     this.node.style.top = `${this.y}px`;
 
-    this.gravitySpeed = 4;
-    this.jumpSpeed = 120;
+    this.gravitySpeed = 5;
+    this.jumpSpeed = 70;
     this.jumpVector = null;
-    this.traverseSpeed = 40;
+    this.traverseSpeed = 12;
+    this.VectorReduction=1.3
+    this.traverseVector=0
     this.jumpDirection = "right";
     this.onPlatform = false;
     this.currentLantern = null;
   }
 
   automaticMovement() {
-    //check if the cricket is not on the platform
+    // run the animation vectors
     this.jumpAnimation()
+    this.traverseAnimation()
+
+
+    //check if the cricket is not on the platform
+
     if (this.onPlatform) {
       this.y += this.currentLantern.currentFloatSpeed;
       this.x += this.currentLantern.currentWindSpeed;
+      this.traverseVector=0
     }
     // what to do when falling
     else {
       this.y = this.y + this.gravitySpeed - this.jumpVector;
     }
+    this.x= this.x + this.traverseVector
+
     this.node.style.top = `${this.y}px`;
+    this.node.style.left = `${this.x}px`
   }
 
   changeDirection(event) {
@@ -68,9 +79,11 @@ class Cricket {
       this.jumpDirection === "right" &&
       this.x < gameBoxNode.offsetWidth - this.w
     ) {
-      this.x += this.traverseSpeed;
+      this.traverseVector=this.traverseSpeed
+
+
     } else if (this.jumpDirection === "left" && this.x > 0) {
-      this.x -= this.traverseSpeed;
+      this.traverseVector = this.traverseSpeed * -1
     }
 
     if (this.onPlatform === true) {
@@ -80,17 +93,6 @@ class Cricket {
     //move the image of the cricket to its actual position
     this.node.style.left = `${this.x}px`;
   }
-
-  // jump() {
-  //   this.y -= this.jumpSpeed;
-  //   this.node.style.top = `${this.y}px`;
-
-  //   this.node.src = "../images/cricket.png";
-  //   this.currentLantern.releaseCricket(this); // let the lantern restore itself
-  //   this.currentLantern = null;
-  //   this.onPlatform = false;
-  //   jumpSound.play()
-  // }
 
   jump() {
     this.jumpVector = this.jumpSpeed;
@@ -102,10 +104,33 @@ class Cricket {
 
   // when the user jumps, we nowly moves up trigger a jump vector so that the cricket smooth
   jumpAnimation() {
-      this.jumpVector = this.jumpVector / 1.5;
+      this.jumpVector = this.jumpVector / this.VectorReduction;
   }
   // can you refactor this to change images when you land
 
+  traverseAnimation(){
+
+    if(this.jumpDirection==="right" && this.traverseVector>0){
+    this.traverseVector = this.traverseVector-this.VectorReduction
+    console.log("traversing right" + this.traverseVector)
+    }
+    else if(this.jumpDirection==="right" && this.traverseVector<0){
+    this.traverseVector = 0
+    console.log("traversing right ended" + this.traverseVector)
+    }
+        if(this.jumpDirection==="left" && this.traverseVector<0){
+    this.traverseVector = this.traverseVector+this.VectorReduction
+    console.log("traversing left" + this.traverseVector)
+    }
+    else if(this.jumpDirection==="left" && this.traverseVector>0){
+    this.traverseVector = 0
+    console.log("traversing left ended" + this.traverseVector)
+    }
+
+
+
+
+  }
   landed() {
     cricketObj.onPlatform = true;
     lanternObj.containsCricket = true;
@@ -113,8 +138,9 @@ class Cricket {
     landSound.play();
   }
 
-  // when the cricket lands it needs to be centered on the lanturn
-  repositionOnLanturn() {
+  // when the cricket lands it needs to be centered on the lanturn and traverse should be reset
+    repositionOnLanturn() {
+    this.traverseVector=0
     this.x = this.currentLantern.x + this.currentLantern.w / 2 - this.w / 2;
     this.y = this.currentLantern.y + this.currentLantern.h / 2;
 

@@ -121,19 +121,6 @@ function checkLanternCollisionFloor(lanternObj) {
   }
 }
 
-function checkCollision(element1, element2) {
-  if (
-    element1.x < element2.x + element2.w &&
-    element1.x + element1.w > element2.x &&
-    element1.y < element2.y + element2.h &&
-    element1.y + element1.h > element2.y
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function checkLanding(cricketObj, eachLanternObj) {
   const cricketMidX = cricketObj.x + cricketObj.w / 2;
   const platformLeft =
@@ -150,7 +137,8 @@ function checkLanding(cricketObj, eachLanternObj) {
       eachLanternObj.y + eachLanternObj.h &&
     cricketObj.y + cricketObj.h >
       eachLanternObj.y + eachLanternObj.h - platformHeight &&
-    cricketObj.onPlatform == false
+    cricketObj.onPlatform == false &&
+    eachLanternObj.justReleased == false
   ) {
     return true;
   }
@@ -274,17 +262,6 @@ function getHighScoresArray() {
   sortHighScores(currentHighScoresArray);
   return currentHighScoresArray;
 }
-//check the score and enable button. Make the default disabled
-
-// less than 5 elements, always add a name
-
-// detect if new score is higher than the the 5th element allow user to add the name
-
-// sort the array by score
-// stringify it
-// store it again in local storage
-
-//
 
 function sortHighScores(list) {
   return list.sort((b, a) => a.score - b.score);
