@@ -12,10 +12,10 @@ const finalScoreNode = document.querySelector("#gameover-screen .score");
 const highScoreListNode = document.querySelector("#high-score-list");
 const nameInputNode = document.querySelector("#high-score-name");
 // Audio elements
-const backgroundMusic = new Audio("/sounds/backgroundFireworks.wav"); // background music when the game starts
-const jumpSound = new Audio("/sounds/jumpSound.wav");
-const landSound = new Audio("/sounds/landSound.wav");
-const endGameMusic = new Audio("/sounds/endGameMusic.flac");
+const backgroundMusic = new Audio("./sounds/backgroundFireworks.wav"); // background music when the game starts
+const jumpSound = new Audio("./sounds/jumpSound.wav");
+const landSound = new Audio("./sounds/landSound.wav");
+const endGameMusic = new Audio("./sounds/endGameMusic.flac");
 backgroundMusic.volume = 0.1;
 jumpSound.volume = 0.3;
 landSound.volume = 1;
@@ -311,7 +311,7 @@ function showHighScoreList() {
 }
 
 function scrollBackground(){
-  
+
 
 
 }
