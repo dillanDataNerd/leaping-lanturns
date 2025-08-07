@@ -21,7 +21,7 @@ jumpSound.volume = 0.3;
 landSound.volume = 1;
 endGameMusic.volume = 0.1;
 
-const splatSound = new Audio("/sounds/splat.wav");
+const splatSound = new Audio("./sounds/splat.wav");
 
 // Global variables
 
