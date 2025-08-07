@@ -21,6 +21,7 @@ class Cricket {
 
     this.gravitySpeed = 4;
     this.jumpSpeed = 120;
+    this.jumpVector = null;
     this.traverseSpeed = 40;
     this.jumpDirection = "right";
     this.onPlatform = false;
@@ -29,13 +30,14 @@ class Cricket {
 
   automaticMovement() {
     //check if the cricket is not on the platform
+    this.jumpAnimation()
     if (this.onPlatform) {
       this.y += this.currentLantern.currentFloatSpeed;
-      this.x += this.currentLantern.currentWindSpeed
+      this.x += this.currentLantern.currentWindSpeed;
     }
     // what to do when falling
     else {
-      this.y += this.gravitySpeed;
+      this.y = this.y + this.gravitySpeed - this.jumpVector;
     }
     this.node.style.top = `${this.y}px`;
   }
@@ -72,7 +74,6 @@ class Cricket {
     }
 
     if (this.onPlatform === true) {
-      this.onPlatform = false;
       this.jump();
     }
 
@@ -80,24 +81,36 @@ class Cricket {
     this.node.style.left = `${this.x}px`;
   }
 
-  jump() {
-    this.y -= this.jumpSpeed;
-    this.node.style.top = `${this.y}px`;
+  // jump() {
+  //   this.y -= this.jumpSpeed;
+  //   this.node.style.top = `${this.y}px`;
 
-    this.node.src = "../images/cricket.png";
+  //   this.node.src = "../images/cricket.png";
+  //   this.currentLantern.releaseCricket(this); // let the lantern restore itself
+  //   this.currentLantern = null;
+  //   this.onPlatform = false;
+  //   jumpSound.play()
+  // }
+
+  jump() {
+    this.jumpVector = this.jumpSpeed;
     this.currentLantern.releaseCricket(this); // let the lantern restore itself
     this.currentLantern = null;
     this.onPlatform = false;
-    jumpSound.play()
+    jumpSound.play();
   }
 
+  // when the user jumps, we nowly moves up trigger a jump vector so that the cricket smooth
+  jumpAnimation() {
+      this.jumpVector = this.jumpVector / 1.5;
+  }
   // can you refactor this to change images when you land
 
   landed() {
     cricketObj.onPlatform = true;
     lanternObj.containsCricket = true;
     cricketObj.currentLantern = lanternObj;
-    landSound.play()
+    landSound.play();
   }
 
   // when the cricket lands it needs to be centered on the lanturn
