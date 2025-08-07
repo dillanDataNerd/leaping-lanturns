@@ -30,7 +30,8 @@ class Cricket {
   automaticMovement() {
     //check if the cricket is not on the platform
     if (this.onPlatform) {
-      this.y += this.currentLantern.currentSpeed;
+      this.y += this.currentLantern.currentFloatSpeed;
+      this.x += this.currentLantern.currentWindSpeed
     }
     // what to do when falling
     else {

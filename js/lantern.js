@@ -2,14 +2,11 @@ class Lantern {
   constructor(xPosition, yPosition, startingFuelAMount, containsCricket) {
     this.node = document.createElement("img");
     this.node.className = "lantern";
-    this.node.src = "../images/lantern-floating.png"; // access this as if you were accessing the image from the HTML file
+    this.node.src = "../images/lantern-floating.png"; 
     gameBoxNode.append(this.node);
 
-    // this.x= Math.floor(Math.random()*gameBoxNode.offsetWidth)
-    // this.y= gameBoxNode.offsetHeight
     this.h = 150;
     this.w = 80;
-
     this.x = xPosition;
     this.y = yPosition-this.h/2;
 
@@ -25,21 +22,33 @@ class Lantern {
 
     this.floatSpeed = 1.5;
     this.gravitySpeed = 0.5 * this.floatSpeed;
+    this.windSpeed=1
+    this.windDirection=Math.random()-0.5
     this.remainingFuel = startingFuelAMount;
     this.containsCricket = containsCricket;
-    this.currentSpeed = this.floatSpeed
+    this.currentFloatSpeed = this.floatSpeed
+    this.currentWindSpeed= this.windDirection*this.windSpeed
   }
 
   automaticMovement() {
+    // y movement of lanturn
     if (this.remainingFuel) {
-      this.currentSpeed = -this.floatSpeed;
+      this.currentFloatSpeed = -this.floatSpeed;
       this.remainingFuel--;
     } else if (this.remainingFuel === 0) {
-        this.currentSpeed=this.gravitySpeed
+        this.currentFloatSpeed=this.gravitySpeed
         }
 
-    this.y += this.currentSpeed
+    this.y += this.currentFloatSpeed
     this.node.style.top = `${this.y}px`;
+
+    //x movement of lanturn
+    
+    this.reverseWind()
+    
+    this.x += this.currentWindSpeed
+    this.node.style.left = `${this.x}px`;
+
     
   }
 
@@ -80,4 +89,10 @@ class Lantern {
     this.containsCricket = false;
   }
 
+// if the lantern hits a wall, change the x direction of thel lantern
+  reverseWind(){
+    if (this.x < 0 || (this.x > gameBoxNode.offsetWidth - this.w) ){
+      this.currentWindSpeed *= -1
+    }
+  }
 }
