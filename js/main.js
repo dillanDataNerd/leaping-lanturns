@@ -11,6 +11,7 @@ const liveScoreNode = document.querySelector(".score");
 const finalScoreNode = document.querySelector("#gameover-screen .score");
 const highScoreListNode = document.querySelector("#high-score-list");
 const nameInputNode = document.querySelector("#high-score-name");
+
 // Audio elements
 const backgroundMusic = new Audio("./sounds/backgroundFireworks.wav"); // background music when the game starts
 const jumpSound = new Audio("./sounds/jumpSound.wav");
@@ -30,21 +31,24 @@ let lanternArray = [];
 let gameIntervalID = null;
 let spawnIntervalID = null;
 let score = 0;
+let highScoresString = null;
+
+
+// Config variables for the game
 const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
 const minimumStartingFuel = 100;
 const platformHeight = 20;
 const platformWidth = 40;
-let highScoresString = null;
 
-//initial check for high scores incase the person is playing for the first time and its emprty
+//initial check for high scores incase the person is playing for the first time and its empty
 if (!localStorage.getItem("previousHighScoreArray")) {
   localStorage.setItem("previousHighScoreArray", `[]`); // initialise an empty array
 }
-// Global functions
+/************************************************* CORE GAME LOOP *****************************************************/
 
-// Game start
-
+// Game starts when the user clicks play game or restart game. 
+// This opens the correct view of the app and resets all of the core game
 function startGame() {
   startScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
@@ -58,13 +62,14 @@ function startGame() {
 }
 
 function gameLoop() {
-  //Despawn all lanterns that are falling and out of screen
-  // When the cricket is not on a platform check if it is in the vicinity of one and land on it
+
+  // manage all lantern state updates and despawn those that have hit the ground
   sortLanternArrayDescending();
   lanternArray.forEach((lanternObj) => {
     despawnLantern(lanternObj);
     lanternObj.burntOut();
 
+    // check every lanturn to see if it collided with the cricket. If so set the cricket onto the lanturn
     if (checkLanding(cricketObj, lanternObj)) {
       cricketObj.onPlatform = true;
       cricketObj.currentLantern = lanternObj;
@@ -74,15 +79,11 @@ function gameLoop() {
   });
   updateScore();
 
-  // move the lanturn and cricket based on objectives above
+  // move the lanturn and cricket based on the states above
   lanternArray.forEach((lanternObj) => lanternObj.automaticMovement());
   cricketObj.automaticMovement();
-
-  // scroll the background up as the user get higher
-  scrollBackground()
   
   //check if the bug has hit the ground. When it does, finish the game
-  
   gameOver();
 }
 
@@ -105,6 +106,9 @@ function gameOver() {
     finalScoreNode.innerHTML = `${Math.round(score)}m`;
   }
 }
+
+
+/*********************************************** HELPER FUNCTIONS *********************************************/ 
 
 function checkCricketCollisionFloor() {
   if (cricketObj.y + cricketObj.h > gameBoxNode.offsetHeight) {
@@ -150,7 +154,7 @@ function checkLanding(cricketObj, eachLanternObj) {
 }
 
 function cricketAction(event) {
-  // check what the user pressed
+  // check what the user pressed and pass the action onto the cricket
   if (
     event.key === "a" ||
     event.key === "ArrowLeft" ||
@@ -189,7 +193,7 @@ function sortLanternArrayDescending() {
 }
 
 function updateScore() {
-  score += 60 / 1000;
+  score += 20 / 1000;
   liveScoreNode.innerHTML = Math.round(score);
 }
 
@@ -308,12 +312,6 @@ function showHighScoreList() {
     }
     i++;
   }
-}
-
-function scrollBackground(){
-
-
-
 }
 
 // Global listners

@@ -1,5 +1,4 @@
-# Write the README.md content to a file in the sandbox so the user can download it.
-readme_content = """# LEAPING LANTERNS
+# LEAPING LANTERNS
 
 ## [Play the Game!](https://dillandatanerd.github.io/leaping-lanturns/) <!-- drop in your Netlify / GitHub Pages link -->
 
@@ -45,7 +44,8 @@ Time each hop, keep your balance while lanterns drift in the wind, and climb as 
 - 🏮 **Lantern varieties**: fragile glass, rocket-boost, zig-zag kites.  
 - 🏆 **Online leaderboard** save the scores to compete with everyone.  
 - 🖼️ **Scrolling Background** The background should scroll up as you move higher
-- 💪**Progressive difficulty increase** The gravity and speed should increase as you move higher up
+- 💪 **Progressive difficulty increase** The gravity and speed should increase as you move higher up
+- 🪶 **Better jumping and falling physics** Use acceleration equations to make falling and jumping smoother
 
 
 ---
@@ -113,20 +113,6 @@ Other assets
 - **`index.html`** – single-page layout, game containers, asset preload
 
 ---
-
-## Folder Layout
-
-project-root/
-│
-├─ images/ # sprites, background, icons
-├─ sounds/ # wav & flac SFX / music
-├─ styles/
-│ └─ style.css
-├─ js/
-│ ├─ main.js
-│ ├─ cricket.js
-│ └─ lantern.js
-└─ index.html
 
 ### How to Run Locally
 
