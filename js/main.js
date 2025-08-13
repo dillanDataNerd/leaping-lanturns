@@ -39,7 +39,7 @@ const lanternSpawnLocationBelowScreen = 0;
 const lanternSpawnRate = 2000;
 const minimumStartingFuel = 100;
 const platformHeight = 20;
-const platformWidth = 40;
+const platformWidth = 60;
 
 //initial check for high scores incase the person is playing for the first time and its empty
 if (!localStorage.getItem("previousHighScoreArray")) {

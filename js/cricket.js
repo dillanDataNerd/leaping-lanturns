@@ -18,7 +18,7 @@ class Cricket {
     this.node.style.top = `${this.y}px`;
 
     //Config variables
-    this.gravitySpeed = 8;
+    this.gravitySpeed = 6;
     this.jumpSpeed = 70;
     this.traverseSpeed = 12;
     this.VectorReduction = 1.3;
